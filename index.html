@@ -2,33 +2,31 @@
 <html>
 <head>
   <p>Hello World</p>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  background-color: #eee;
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-
-.node text { font: 16px sans-serif; }
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <div>
+  </div>
+</body>
+<style>
+  body {
+    background-color: #eee;
+  }
 
-<div>
-</div>
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px;
+  }
 
+  .node text { font: 16px sans-serif; }
 
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+</style>
 <script src="d3.v3.min.js" charset="utf-8">
 const treeData = {
   "name": "Eve",
@@ -149,6 +147,4 @@ node.append("text")
   .style("text-anchor", d => d.children ? "end" : "start")
   .text(d => d.data.name);
 </script>
-
-</body>
 </html>
