@@ -22,12 +22,44 @@
 	  stroke: #ccc;
 	  stroke-width: 2px;
 	}
-	
-    </style>
 
+	textarea {	
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;	
+	  width: 100%;
+	  height: 80%;
+	box-shadow: inset 0 0 5px black;
+	}
+	    
+	.url-button{
+	  display:block;
+	  text-align:center;
+	}
+
+	.url-button input{
+	  background-color: #2980b9;
+	  border: 1px solid #d1d1d1;
+	  padding:10px;
+	  border-radius:5px;
+	  width:100px;
+	  color:#fff;
+	}
+    </style>
   </head>
 
   <body>
+<form method="post" action="">
+  <br />
+  <textarea name="list_urls" id="list_urls" cols="60" rows="20"></textarea>
+  <br />
+  <br />
+  <div class="url-button">
+      <input value="Open URLs" class="submit" type="button" onClick="open_all();">
+      <input type="reset" value="Reset!">
+  </div>
+  <br/>
+</form>
 
 <!-- load the d3.js library -->	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
