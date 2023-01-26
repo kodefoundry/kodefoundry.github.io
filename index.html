@@ -55,7 +55,7 @@
   <br />
   <br />
   <div class="url-button">
-      <input value="Open URLs" class="submit" type="button" onClick="open_all();">
+      <input value="Build Tree" class="submit" type="button" onClick="build_tree();">
       <input type="reset" value="Reset!">
   </div>
   <br/>
@@ -145,7 +145,10 @@ var svg = d3.select("body").append("svg")
 	.attr("height", height + margin.top + margin.bottom)
   .append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+function build_tree() {
+	window.alert("sometext");
+}
+	
 root = treeData[0];
   
 update(root);
