@@ -148,7 +148,7 @@ var svg = d3.select("body").append("svg")
 
 var button = document.getElementById('treeButton');
 button.addEventListener('click', function() {
-    var message = $('textarea#list_urls').val();
+    var message = $('list_urls').val();
     build_tree(message);
 });
 
