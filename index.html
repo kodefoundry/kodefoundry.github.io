@@ -55,7 +55,7 @@
   <br />
   <br />
   <div class="url-button">
-      <input value="Build Tree" class="submit" type="button" onClick="build_tree();">
+      <input value="Build Tree" class="submit" type="button">
       <input type="reset" value="Reset!">
   </div>
   <br/>
@@ -145,6 +145,13 @@ var svg = d3.select("body").append("svg")
 	.attr("height", height + margin.top + margin.bottom)
   .append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var button = document.getElementById('button');
+button.addEventListener('click', function() {
+    var message = $('textarea#message_box').val();
+    console.log(message)
+});
+
 function build_tree() {
 	window.alert("sometext");
 }
