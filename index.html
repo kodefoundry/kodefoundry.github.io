@@ -149,11 +149,11 @@ var svg = d3.select("body").append("svg")
 var button = document.getElementById('button');
 button.addEventListener('click', function() {
     var message = $('textarea#message_box').val();
-    console.log(message)
+    build_tree(message);
 });
 
-function build_tree() {
-	window.alert("sometext");
+function build_tree(message) {
+	window.alert(message);
 }
 	
 root = treeData[0];
