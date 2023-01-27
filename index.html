@@ -64,102 +64,77 @@
 <!-- load the d3.js library -->	
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-	
+<script type="text/javascript">
+  let queue = []
+  enqueue = (item)=>{queue.push(item)}
+  dequeue = (item)=>{item=queue[0];queue.shift();return item}
+  isQEmpty = ()=>{return queue.length == 0}
+  class Node {
+    constructor(data){
+      this.name = data;
+      this.children = []
+    }
+  }
+  class AddressDTree {
+    constructor(node){
+        this.root = node;
+    }
+  }
+</script>
 <script>
-
-  const treeData = [{
-    "name": "Eve",
-    "value": 15,
-    "type": "black",
-    "level": "yellow",
-    "children": [
-      {
-        "name": "Cain",
-        "value": 10,
-        "type": "grey",
-        "level": "red"
-      },
-      {
-        "name": "Seth",
-        "value": 10,
-        "type": "grey",
-        "level": "red",
-        "children": [
-          {
-            "name": "Enos",
-            "value": 7.5,
-            "type": "grey",
-            "level": "purple"
-          },
-          {
-            "name": "Noam",
-            "value": 7.5,
-            "type": "grey",
-            "level": "purple"
-          }
-        ]
-      },
-      {
-        "name": "Abel",
-        "value": 10,
-        "type": "grey",
-        "level": "blue"
-      },
-      {
-        "name": "Awan",
-        "value": 10,
-        "type": "grey",
-        "level": "green",
-        "children": [
-          {
-            "name": "Enoch",
-            "value": 7.5,
-            "type": "grey",
-            "level": "orange"
-          }
-        ]
-      },
-      {
-        "name": "Azura",
-        "value": 10,
-        "type": "grey",
-        "level": "green"
-      }
-    ]
-  }];
-
-// ************** Generate the tree diagram	 *****************
-var margin = {top: 40, right: 120, bottom: 20, left: 120},
-	width = 960 - margin.right - margin.left,
-	height = 500 - margin.top - margin.bottom;
-	
-var i = 0;
-
-var tree = d3.layout.tree()
-	.size([height, width]);
-
-var diagonal = d3.svg.diagonal()
-	.projection(function(d) { return [d.x, d.y]; });
-
-var svg = d3.select("body").append("svg")
-	.attr("width", width + margin.right + margin.left)
-	.attr("height", height + margin.top + margin.bottom)
-  .append("g")
-	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+var treeData = [];
+var svg = null;
+var tree = null;
+var diagonal = null;
+// ************** Building Tree from message *****************
 var button = document.getElementById('treeButton');
 button.addEventListener('click', function() {
     var message = $('textarea#list_urls').val();
-    build_tree(message);
+    treeData = build_tree(message);
+    //update([]);
+    createCanvas();
+    update(treeData[0]);
 });
 
 function build_tree(message) {
-	window.alert(message);
+  message = message.replaceAll(" ","$");
+  message = message.replaceAll('\n',"#");
+  root = new Node(message[0])
+  enqueue(root);
+  ctr = 1;
+  while(!isQEmpty() && ctr < message.length){
+      node = dequeue();
+      for(i=0;i<3 && ctr + i < message.length; i++){
+        ch = new Node(message[ctr+i]);
+        node.children = [...(node.children||[]),ch]
+        enqueue(ch)
+      }
+      ctr +=3
+  }
+  console.log(JSON.stringify(root));
+  return [root];
 }
-	
-root = treeData[0];
+
+// ************** Generate the tree diagram	 *****************
+function createCanvas(){
+  var margin = {top: 40, right: 120, bottom: 20, left: 120},
+  width = 2960 - margin.right - margin.left,
+  height = 2500 - margin.top - margin.bottom;
   
-update(root);
+  var i = 0;
+
+  tree = d3.layout.tree()
+    .size([height, width]);
+
+  diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.x, d.y]; });
+
+  svg = d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+}
 
 function update(source) {
 
