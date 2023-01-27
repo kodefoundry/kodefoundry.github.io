@@ -99,13 +99,13 @@ button.addEventListener('click', function() {
 function build_tree(message) {
   message = message.replaceAll(" ","$");
   message = message.replaceAll('\n',"#");
-  root = new Node(message[0]=="#"?"\n":message[0])
+  root = new Node(message[0]=="#"?"\\n":message[0])
   enqueue(root);
   ctr = 1;
   while(!isQEmpty() && ctr < message.length){
       node = dequeue();
       for(i=0;i<3 && ctr + i < message.length; i++){
-        ch = new Node(message[ctr+i]=="#"?"\n":message[ctr+i]);
+        ch = new Node(message[ctr+i]=="#"?"\\n":message[ctr+i]);
         node.children = [...(node.children||[]),ch]
         enqueue(ch)
       }
