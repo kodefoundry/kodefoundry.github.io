@@ -7,44 +7,44 @@
 
     <style>
 
-	.node circle {
-	  fill: #fff;
-	  stroke: steelblue;
-	  stroke-width: 3px;
-	}
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 3px;
+  }
 
-	.node text { 
-	  font: 12px sans-serif;
-	}
+  .node text { 
+    font: 12px sans-serif;
+  }
 
-	.link {
-	  fill: none;
-	  stroke: #ccc;
-	  stroke-width: 2px;
-	}
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
 
-	textarea {	
-	  -webkit-box-sizing: border-box;
-	  -moz-box-sizing: border-box;
-	  box-sizing: border-box;	
-	  width: 100%;
-	  height: 80%;
-	box-shadow: inset 0 0 5px black;
-	}
-	    
-	.url-button{
-	  display:block;
-	  text-align:center;
-	}
+  textarea {  
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
+    width: 100%;
+    height: 80%;
+  box-shadow: inset 0 0 5px black;
+  }
+      
+  .url-button{
+    display:block;
+    text-align:center;
+  }
 
-	.url-button input{
-	  background-color: #2980b9;
-	  border: 1px solid #d1d1d1;
-	  padding:10px;
-	  border-radius:5px;
-	  width:100px;
-	  color:#fff;
-	}
+  .url-button input{
+    background-color: #2980b9;
+    border: 1px solid #d1d1d1;
+    padding:10px;
+    border-radius:5px;
+    width:100px;
+    color:#fff;
+  }
     </style>
   </head>
 
@@ -61,7 +61,7 @@
   <br/>
 </form>
 
-<!-- load the d3.js library -->	
+<!-- load the d3.js library --> 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script type="text/javascript">
@@ -99,13 +99,13 @@ button.addEventListener('click', function() {
 function build_tree(message) {
   message = message.replaceAll(" ","$");
   message = message.replaceAll('\n',"#");
-  root = new Node(message[0]?"#"?"\n":message[0])
+  root = new Node(message[0]=="#"?"\n":message[0])
   enqueue(root);
   ctr = 1;
   while(!isQEmpty() && ctr < message.length){
       node = dequeue();
       for(i=0;i<3 && ctr + i < message.length; i++){
-        ch = new Node(message[ctr+i]?"#"?"\n":message[ctr+i]);
+        ch = new Node(message[ctr+i]=="#"?"\n":message[ctr+i]);
         node.children = [...(node.children||[]),ch]
         enqueue(ch)
       }
@@ -115,7 +115,7 @@ function build_tree(message) {
   return [root];
 }
 
-// ************** Generate the tree diagram	 *****************
+// ************** Generate the tree diagram  *****************
 function createCanvas(){
   var margin = {top: 40, right: 120, bottom: 20, left: 120},
   width = 2960 - margin.right - margin.left,
@@ -140,44 +140,44 @@ function update(source) {
 
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
-	  links = tree.links(nodes);
+    links = tree.links(nodes);
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * 100; });
 
   // Declare the nodes…
   var node = svg.selectAll("g.node")
-	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+    .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
   // Enter the nodes.
   var nodeEnter = node.enter().append("g")
-	  .attr("class", "node")
-	  .attr("transform", function(d) { 
-		  return "translate(" + d.x + "," + d.y + ")"; });
+    .attr("class", "node")
+    .attr("transform", function(d) { 
+      return "translate(" + d.x + "," + d.y + ")"; });
 
   nodeEnter.append("circle")
-	  .attr("r", 10)
-	  .style("fill", "#fff");
+    .attr("r", 10)
+    .style("fill", "#fff");
 
   nodeEnter.append("text")
-	  .attr("y", function(d) { 
-		  return d.children || d._children ? -18 : 18; })
-	  .attr("dy", ".35em")
-	  .attr("text-anchor", "middle")
-	  .text(function(d) { return d.name; })
-	  .style("fill-opacity", 1);
+    .attr("y", function(d) { 
+      return d.children || d._children ? -18 : 18; })
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    .text(function(d) { return d.name; })
+    .style("fill-opacity", 1);
 
   // Declare the links…
   var link = svg.selectAll("path.link")
-	  .data(links, function(d) { return d.target.id; });
+    .data(links, function(d) { return d.target.id; });
 
   // Enter the links.
   link.enter().insert("path", "g")
-	  .attr("class", "link")
-	  .attr("d", diagonal);
+    .attr("class", "link")
+    .attr("d", diagonal);
 
 }
 
-</script>	
+</script> 
   </body>
 </html>
